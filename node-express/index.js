@@ -27,3 +27,10 @@ app.use((req, res, next) => {
     res.end('<html><body><h1>This is an express server</h1></body></html>');
     
 });
+
+const server=http.createServer(app);
+
+server.listen(port,hostname,() => {
+    console.log(`Server is running at http://${hostname}:${port}`);
+
+}) 
