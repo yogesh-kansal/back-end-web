@@ -16,7 +16,7 @@ exports.findDocument = (db,collection,callback) => {
     });
 
 };
-exports.removeDocument = (db,document,collection,callback) => {\
+exports.removeDocument = (db,document,collection,callback) => {
     const coll = db.collection(collection);
     coll.deleteOne(document, (err,result) => {
         assert.equal(err,null);
