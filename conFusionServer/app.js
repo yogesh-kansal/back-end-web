@@ -8,7 +8,22 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishrouter');
 var promoRouter = require('./routes/promoRouter');
-var leadersRouter = require('./routes/leaderRouter');
+var leaderRouter = require('./routes/leaderRouter');
+
+const mongoose = require('mongoose');
+
+const Dishes =require('./models/dishes');
+
+const url ='mongodb://localhost:27017/conFusion';
+const connect =mongoose.connect(url);
+
+connect.then((db) => {
+  console.log("connected correctly to server");
+})
+.catch((err) => {
+  console.log(err);
+})
+
 
 var app = express();
 
@@ -24,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/dishes', usersRouter);
+app.use('/dishes', dishRouter);
 app.use('/promotions', promoRouter);
 app.use('/leaders', leaderRouter);
 
