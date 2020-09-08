@@ -1,47 +1,85 @@
 const express=require('express');
 const bodyParser=require('body-parser');
 
+const Promos = require('../models/promos');
+
 const promoRouter=express.Router();
 
 promoRouter.use(bodyParser.json());
 
 promoRouter.route('/')
-.all((req,res,next) => {
-    res.statusCode=200;
-    res.setHeader('Content-Type','text/plain');
-    next();
-})
 .get((req,res,next) =>{
-    res.end('will send all dishes to you');
+    Promos.find({})
+    .then((promos) => {
+        res.sendStatus=200;
+        res.setHeader('Content-Type','application/json');
+        res.json(promos);
+    })
+    .catch((err) => next(err));
 })
 .post((req,res,next) =>{
-    res.end('will add dish: '+req.body.name+' with details: '+req.body.description);
+    Promos.create(req.body)
+    .then((promo_dish) =>{
+        console.log('new dish created: ',promo_dish);
+        res.sendStatus=200;
+        res.setHeader('Content-Type','application/json');
+        res.json(promo_dish);
+    })
+    .catch((err) => next(err));
 })
 .put((req,res,next) =>{
     res.statusCode=403;
     res.end('PUT operation is not supported on /promotions' );
 })
 .delete((req,res,next) =>{
-    res.end('deleting all dishes!');
+    Promos.remove({})
+    .then((resp) => {
+        res.statusCode=200;
+        res.setHeader('Content-type','application/json');
+        res.json(resp);        
+    })
+    .catch((err) => next(err));
+    
 });
 
 
 
-promoRouter.route('/:promoId/')
+promoRouter.route('/:promoId')
 .get((req,res,next) => {
-    res.end('Will send details of the dish: ' + req.params.promoId +' to you!');
+    Promos.findById(req.params.promoId)
+    .then((promo_dish) => {
+        res.statusCode=200;
+        res.setHeader('Content-type','application/json');
+        res.json(promo_dish);
+
+    })
 })
 .post((req, res, next) => {
   res.statusCode = 403;
   res.end('POST operation not supported on /promotions/'+ req.params.promoId);
 })
 .put((req, res, next) => {
-  res.write('Updating the dish: ' + req.params.promoId + '\n');
-  res.end('Will update the dish: ' + req.body.name + 
-        ' with details: ' + req.body.description);
+    Promos.findByIdAndUpdate(req.params.promoId,{
+        $set :req.body
+    },
+    {
+        new:true
+    })
+    .then((promo_dish) => {
+        res.statusCode=200;
+        res.setHeader('Content-Type','application/json');
+        res.json(promo_dish);
+    })
+    .catch((err) => next(err));
 })
 .delete((req, res, next) => {
-    res.end('Deleting dish: ' + req.params.promoId);
+    Promos.findByIdAndRemove(req.params.promoId)
+    .then((resp) => {
+        res.statusCode=200;
+        res.setHeader('Content-type','application/json');
+        res.json(resp);        
+    })
+    .catch((err) => next(err));
 });
 
 
