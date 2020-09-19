@@ -8,13 +8,13 @@ const dbname='conFusion';
 
 MongoClient.connect(url,(err,client) =>{
 
-    assert.equal(err,null);h
+    assert.equal(err,null);
 
     console.log('Connected correctly to server');
 
     const db=client.db(dbname);
 
-    dboper.insertDocument(db, {name:"Akash" ,class:"gen"}, 'dishes',(result) => {
+    dboper.insertDocument(db, {name:"Akash" ,class:"gen"}, 'dushes',(result) => {
 
         console.log('InsertDocument:\n',result.ops);
 
