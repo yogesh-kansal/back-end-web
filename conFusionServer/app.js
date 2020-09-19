@@ -34,7 +34,7 @@ connect.then((db) => {
 var app = express();
 
 
-// **** performed to use secure server ****
+/* **** performed to use secure server ****
 app.all('*', (req,res,next) => {
   if(req.secure) {
     return next();
@@ -42,7 +42,7 @@ app.all('*', (req,res,next) => {
   else {
     res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort')+ req.url);
   }
-})//*/
+})*/
 
 
 // view engine setup
