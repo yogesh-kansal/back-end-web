@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const cors =require('./cors');
 const Dishes = require('../models/dishes');
 const authenticate= require('../authenticate');
-const e = require('express');
 const dishRouter=express.Router();
 
 dishRouter.use(bodyParser.json());
@@ -255,7 +254,7 @@ dishRouter.route('/:dishId/comments/:commentId')
             dish.save()
              .then((dish) => {            
                 Dishes.findById(dish._id)
-                .populate('comments-author');           
+                .populate('comments.author');           
                  res.statusCode=200;
                  res.setHeader('Content-type','application/json');
                  res.json(dish);
