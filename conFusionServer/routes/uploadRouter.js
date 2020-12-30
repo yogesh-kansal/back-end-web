@@ -34,7 +34,7 @@ uploadRouter.route('/')
     res.statusCode=403;
     res.end('GET operation is not supported on /imageUpload');
 })
-.post(cors.corsWithOptions, authenticate.verifyUser,authenticate.verifyAdmin, upload.single('imageFile'), (req,res) =>{
+.post( cors.corsWithOptions, authenticate.verifyUser, authenticate.verifyAdmin, upload.single('imageFile'), (req,res) =>{
     console.log(req.headers);
     res.statusCode=200;
     res.setHeader('Contetnt-Type','application/json');
