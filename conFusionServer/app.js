@@ -25,7 +25,8 @@ const url =config.mongourl;
 const connect =mongoose.connect(url);
 
 connect.then((db) => {
-  console.log("connected correctly to server");
+  console.log("connected successfully");
+  //console.log(db);
 })
 .catch((err) => {
   console.log(err);
@@ -34,8 +35,7 @@ connect.then((db) => {
 
 var app = express();
 
-
-/* **** performed to use secure server ****
+/* **** performed to use secure server ****/
 app.all('*', (req,res,next) => {
   if(req.secure) {
     return next();
@@ -43,7 +43,7 @@ app.all('*', (req,res,next) => {
   else {
     res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort')+ req.url);
   }
-})*/
+})
 
 
 // view engine setup
@@ -64,7 +64,7 @@ app.use(session ({
 
 }));*/
 app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -118,3 +118,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+ 

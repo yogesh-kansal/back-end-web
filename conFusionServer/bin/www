@@ -8,6 +8,9 @@ var app = require('../app');
 var debug = require('debug')('confusionserver:server');
 var http = require('http');
 
+// creating https
+var https=require('https');
+var fs=require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -15,7 +18,8 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT ||'3001');
 app.set('port', port);
-
+//https port
+app.set('secPort',port+443);
 
 /**
  * Create HTTP server.
@@ -27,6 +31,20 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 
+//related to https
+var options={
+  cert: fs.readFileSync(__dirname+'/56240112_localhost3001.cert'),
+  key: fs.readFileSync(__dirname+ '/56240112_localhost3001.key')
+};
+    
+
+var secureServer = https.createServer(options,app);
+secureServer.listen(app.get('secPort'),()=>{
+  console.log('Secure server is listening on port ',app.get('secPort'))
+});
+
+secureServer.on('error',onError);
+secureServer.on('listening',onListening);
 
 
 
@@ -93,28 +111,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
- /*
- creating secure server
- var https =require('https');
-var fs =require('fs');
-const { Certificate } = require('crypto');
-
-
- app.set('secPort',port+443);
-
-
-var options = {
-  key: fs.readFileSync(__dirname+'private.key'),
-  cert: fs.readFileSync(__dirname + '/certificate.pem')
-};
-
-var secureServer =https.createServer(options,app);
-secureServer.listen(app.get('secPort')), () => {
-  console.log('secure server listing on port ',app.get('secPort'));
-};
-
-secureServer.on(err, onError);
-secureServer.on('listening', onListening);
-
-*/
