@@ -8,11 +8,16 @@ var corsOptionsdelegates = (req,callback) => {
 
     if(whitelist.indexOf(req.header('Origin'))!= -1) {
         corsOptions={origin:true};
+        callback(null,corsOptions);
     }
     else {
         corsOptions= {origin:false};
+        var error = new Error("Provided origin is not secured for communication!!!");
+        error.status=403;
+        callback(error,corsOptions);
+        //return next(error);
     }
-    callback(null,corsOptions);
+
 
 };
 

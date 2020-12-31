@@ -21,6 +21,8 @@ var  User = new Schema({
 });
 
 User.plugin(passportLocalMongoose);
+//plugin adds username and hashed password fields(hash,salt) in User modal
+
 
 
 module.exports = mongoose.model('user',User);
