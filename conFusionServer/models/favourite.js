@@ -14,7 +14,11 @@ const fav_schema = new Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
-    favs: [schema]
+    favs: [{
+        type:Schema.Types.ObjectId,
+        ref: 'Dish',
+        required: true
+    }]
     //can directly put inside but i creted new schema seperatly for simplicity
 },
 {
