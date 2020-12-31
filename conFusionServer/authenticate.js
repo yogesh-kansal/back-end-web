@@ -21,22 +21,16 @@ exports.getToken=function(user) {
 
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-console.log("options are", opts);
 opts.secretOrKey = config.secretKey;
-
-console.log("options are", opts);
-
 
 exports.jwtpassport=passport.use(new JwtStrategy(opts,
     (jwt_payload, done) => {
-        console.log("JWT payload",jwt_payload);
         User.findOne({_id: jwt_payload._id}, (err, user)=> {
             if (err) {
                 console.log("err is",err);
                 return done(err, false);
             }
             else if (user) {
-                console.log("user found")
                 return done(null, user);
             } else {
                 console.log("data is",err,user)

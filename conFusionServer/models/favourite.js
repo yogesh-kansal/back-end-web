@@ -1,13 +1,13 @@
 const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
-
+/*
 const schema = new Schema({
     feild: {
         type: Schema.Types.ObjectId,
         ref: 'Dish',
         required: true 
     }
-})
+})*/
 
 const fav_schema = new Schema({
     user: {

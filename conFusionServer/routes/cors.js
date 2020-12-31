@@ -1,8 +1,10 @@
 const experess =require('express');
 const cors =require('cors');
 const app =experess();
-
-const whitelist =['http://localhost:3001','https://localhost:3444'];
+// :3001 for rest API server at http
+// :3444 for rest API server at https
+// :3000 for REACT client 
+const whitelist =['http://localhost:3001','https://localhost:3444','http://localhost:3000'];
 var corsOptionsdelegates = (req,callback) => {
     var corsOptions;
 

@@ -5,13 +5,17 @@ const cors =require('./cors');
 const Dishes = require('../models/dishes');
 const authenticate= require('../authenticate');
 const dishRouter=express.Router();
-
 dishRouter.use(bodyParser.json());
+
+
+//here .options() is used for: client first sends .options method to verify weather the actual request is safe to send
+//cors.cors gives permission for any type of origin
+// cors.corsWithOptions gives permission to specified origins 
 
 dishRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
 .get(cors.cors, (req,res,next) =>{
-    Dishes.find({})  
+    Dishes.find(req.query)  //for query paramet  
     .populate('comments.author')
     .then((dishes) => {
         res.statusCode=200;
@@ -89,11 +93,22 @@ dishRouter.route('/:dishId')
     .catch((err) => next(err));
 });
 
+module.exports=dishRouter;
 
+
+
+
+
+
+
+
+
+
+/*
 dishRouter.route('/:dishId/comments')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
 .get(cors.cors, authenticate.verifyUser,(req,res,next) =>{
-    console.log(req.user);
+    //console.log(req.user);
     Dishes.findById(req.params.dishId)
     .populate('comments.author')
     .then((dish) => {
@@ -119,6 +134,7 @@ dishRouter.route('/:dishId/comments')
         dish.comments.push(req.body);
         dish.save()
         .then((dish) => { 
+            console.log("dish is",dish);
             Dishes.findById(dish._id)
             .populate('comments.author')
             .then((dish) => {
@@ -275,6 +291,4 @@ dishRouter.route('/:dishId/comments/:commentId')
     .catch((err) => next(err));
 
 });
-
-
-module.exports=dishRouter;
+*/
