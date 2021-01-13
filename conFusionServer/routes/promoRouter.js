@@ -9,7 +9,7 @@ promoRouter.use(bodyParser.json());
 
 promoRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
-.get(cors.cors, authenticate.verifyUser, (req,res,next) =>{
+.get(cors.cors, (req,res,next) =>{
     Promos.find(req.query)  //for query parameters
     .then((promos) => {
         res.sendStatus=200;

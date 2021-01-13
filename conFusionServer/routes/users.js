@@ -113,7 +113,7 @@ router.get('/checkJWTToken', cors.corsWithOptions, (req,res, next)=>{
 });
 
 
-//jwt token does not supported logout of sesion because it has no feild to destroy token
+/*jwt token does not supported logout of sesion because it has no feild to destroy token
 router.get('/logout', cors.corsWithOptions,  (req,res,next) => {
   console.log(req.session);
   if(req.session) {
@@ -127,5 +127,5 @@ router.get('/logout', cors.corsWithOptions,  (req,res,next) => {
     next(err);
   }
 });
-
+*/
 module.exports = router;

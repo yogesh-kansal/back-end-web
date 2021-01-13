@@ -97,6 +97,7 @@ favRouter.route('/')
 
 
 favRouter.route('/:favId')
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
 .get(cors.corsWithOptions, authenticate.verifyUser, (req,res,next) =>{
     Fav.findOne({user:req.user._id})
     .then((resp)=>{
@@ -123,6 +124,7 @@ favRouter.route('/:favId')
     res.end('GET operation is not supported on /favourites/'+req.params.favId);
 })
 .post(cors.corsWithOptions, authenticate.verifyUser, (req,res,next) => {
+    console.log(req.user);
     Fav.find({user: req.user._id})
     .then((resp) => {
         if(resp.length==0) {

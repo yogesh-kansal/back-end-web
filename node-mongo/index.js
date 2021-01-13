@@ -14,7 +14,7 @@ MongoClient.connect(url,(err,client) =>{
 
     const db=client.db(dbname);
 
-    dboper.insertDocument(db, {name:"Akash" ,class:"gen"}, 'dushes',(result) => {
+    dboper.insertDocument(db, {name:"Akash" ,class:"gen"}, 'dishes',(result) => {
 
         console.log('InsertDocument:\n',result.ops);
 
@@ -27,7 +27,9 @@ MongoClient.connect(url,(err,client) =>{
                 dboper.findDocument(db, 'dishes', (docs) => {
                     console.log('Found Document:\n',docs);
                     db.dropCollection('dishes', (result) =>{
-                        console.log('Dropped Collection: ',docs);
+                        console.log('Dropped Collection: ',result);
+
+                        client.close();
 
                     });
 

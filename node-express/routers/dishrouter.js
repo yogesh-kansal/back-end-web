@@ -9,6 +9,7 @@ dishRouter.route('/')
 .all((req,res,next) => {
     res.statusCode=200;
     res.setHeader('Content-Type','text/plain');
+    console.log(req.body);
     next();
 })
 .get((req,res,next) =>{
@@ -36,6 +37,7 @@ dishRouter.route('/:dishId/')
   res.end('POST operation not supported on /dishes/'+ req.params.dishId);
 })
 .put((req, res, next) => {
+    //console.log(req.params,res);
   res.write('Updating the dish: ' + req.params.dishId + '\n');
   res.end('Will update the dish: ' + req.body.name + 
         ' with details: ' + req.body.description);

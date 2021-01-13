@@ -9,7 +9,7 @@ leaderRouter.use(bodyParser.json());
 
 leaderRouter.route('/')
 .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200);})
-.get(cors.cors, authenticate.verifyUser,(req,res,next) =>{
+.get(cors.cors, (req,res,next) =>{
     Leaders.find(req.query) //for query parameters
     .then((leaders) => {
         res.sendStatus=200;
