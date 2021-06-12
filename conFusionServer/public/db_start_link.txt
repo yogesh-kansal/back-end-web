@@ -3,3 +3,6 @@
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjVmMTI5YzUzODZiYjE4MTRmZTNiZmIiLCJpYXQiOjE2MDAxMTc2OTQsImV4cCI6MTYwMDEyMTI5NH0.ylRnol2CQjW2HAbC0USVVw8VE42Y9n3w3GwsYWi4DPU
 
 torun - "C:\Program Files\MongoDB\Server\4.4\bin\mongo.exe"
+commands:-
+1. use database_name
+2. 
